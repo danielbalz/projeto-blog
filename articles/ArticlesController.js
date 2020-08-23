@@ -20,7 +20,7 @@ router.get("/admin/articles/new", adminAuth, (request, response) => {
         response.render("admin/articles/new", {
             categories: categories
         });
-    });    
+    });
 });
 
 router.get("/admin/articles/edit/:id", adminAuth, (request, response) => {
@@ -28,15 +28,14 @@ router.get("/admin/articles/edit/:id", adminAuth, (request, response) => {
 
     Article.findByPk(id).then(article => {
         if(article != undefined) {
-
             Category.findAll().then(categories => {
                 response.render("admin/articles/edit", {article: article, categories: categories});
             });
         } else {
-            response.redirect("/");
+            redirectRoute();
         }
     }).catch(error => {
-        response.redirect("/");
+        redirectRoute();
     });
 });
 
